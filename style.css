@@ -1,0 +1,50 @@
+body {
+  background-color: lightblue;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  font-size: 150px;
+}
+
+p {
+  font-family: verdana;
+  font-size: 30px;
+  text-align: center;
+  
+}
+
+.button-group {
+  margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; 
+    button {
+        padding: 20px 40px;
+        font-size: 40px;
+        cursor: pointer;
+        background-color: white;
+        border-color:black;
+        transition-duration: 0.4s;
+    }
+.button1:hover {
+  background-color: #555555;
+  color: white
+}
+
+.button2:hover {
+  background-color: #555555;
+  color: white
+}
+
+.button3:hover {
+  background-color: #555555;
+  color: white
+}
+
+.button4:hover {
+  background-color: #555555;
+  color: white}
+}
