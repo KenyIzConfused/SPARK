@@ -7,10 +7,121 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="content">
-        <h1>Hello World</h1>
-        <p>Settings page coming soon!</p>
-        <a href="../index.html" class="back-btn">← Back to Home</a>
+    <div class="settings-container">
+        <header class="settings-header">
+            <a href="../index.html" class="back-btn">← Back</a>
+            <h1>⚙️ Settings</h1>
+        </header>
+
+        <div class="settings-sections">
+            <section class="settings-section">
+                <h2>Appearance</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-label">🌙 Dark Mode</span>
+                        <span class="setting-desc">Switch between light and dark themes</span>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="darkMode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-label">☀️ Brightness</span>
+                        <span class="setting-desc">Adjust screen brightness level</span>
+                    </div>
+                    <input type="range" class="slider-input" id="brightness" min="50" max="150" value="100">
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2>Audio</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-label">🔊 Master Volume</span>
+                        <span class="setting-desc">Control overall audio output</span>
+                    </div>
+                    <input type="range" class="slider-input" id="volume" min="0" max="100" value="80">
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-label">🔔 Notification Sounds</span>
+                        <span class="setting-desc">Play sounds for notifications</span>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="notificationSounds" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2>General</h2>
+                
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-label">🌐 Language</span>
+                        <span class="setting-desc">Select your preferred language</span>
+                    </div>
+                    <select class="select-input" id="language">
+                        <option value="en">English</option>
+                        <option value="es">Español</option>
+                        <option value="fr">Français</option>
+                        <option value="de">Deutsch</option>
+                        <option value="zh">中文</option>
+                        <option value="ja">日本語</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-label">📝 Font Size</span>
+                        <span class="setting-desc">Adjust text size across the app</span>
+                    </div>
+                    <select class="select-input" id="fontSize">
+                        <option value="small">Small</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="large">Large</option>
+                        <option value="xlarge">Extra Large</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-label">💾 Auto-Save</span>
+                        <span class="setting-desc">Automatically save your progress</span>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="autoSave" checked>
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="setting-item">
+                    <div class="setting-info">
+                        <span class="setting-label">📊 Compact Mode</span>
+                        <span class="setting-desc">Use a denser layout with less spacing</span>
+                    </div>
+                    <label class="toggle">
+                        <input type="checkbox" id="compactMode">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </section>
+
+            <section class="settings-section">
+                <h2>About</h2>
+                <div class="about-info">
+                    <p><strong>S.P.A.R.K.</strong> v1.0.0</p>
+                    <p class="version">Your personal productivity companion</p>
+                </div>
+            </section>
+        </div>
     </div>
 
     <script src="script.js"></script>
