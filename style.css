@@ -69,12 +69,21 @@ h1 {
     border-radius: 12px;
     transition: all 0.25s ease;
     color: var(--primary-blue);
+    box-sizing: border-box;
 }
 
 .button-primary {
     background-color: var(--accent-blue);
     color: white;
-    border: none;
+    border: 1px solid transparent;
+    grid-column: span 2;
+}
+
+.button-primary:hover {
+    border-color: transparent;
+}
+
+.about-btn {
     grid-column: span 2;
 }
 
