@@ -19,8 +19,7 @@
 
         <div class="button-group">
             <button class="button button-primary">Sign In</button>
-            <button class="button">Sign Up</button>
-            <button class="button">About Us</button>
+            <button class="button about-btn">About Us</button>
             <button class="button settings-btn">Settings</button>
         </div>
     </div>
@@ -32,7 +31,6 @@
             <span>S.P.A.R.K. Assistant</span>
             <button class="close-ai" onclick="toggleAI()">✕</button>
         </div>
-       
         <div class="mascot-container">
             <div class="sparky" id="sparky-mascot">
                 <div class="sparky-head">
@@ -56,79 +54,6 @@
         </div>
     </div>
 
-    <script>
-        const sidebar = document.getElementById('ai-sidebar');
-        const mascot = document.getElementById('sparky-mascot');
-        const chatWindow = document.getElementById('chat-window');
-        const userInput = document.getElementById('user-input');
-        const sendBtn = document.getElementById('send-btn');
-
-        const signs = {
-            "hello": { v: "👋", d: "Move your hand from your forehead outward like a salute." },
-            "thank you": { v: "🙏", d: "Touch your chin and move your hand forward toward the person." },
-            "please": { v: "🔄", d: "Rub your flat hand in a circle over your chest." },
-            "mother": { v: "👩", d: "Tap your thumb on your chin with an open hand." },
-            "father": { v: "👨", d: "Tap your thumb on your forehead with an open hand." },
-            "help": { v: "🙋", d: "Place a 'thumbs up' hand on your flat palm and lift together." },
-            "sorry": { v: "✊", d: "Rub a fist in a circle over your chest." },
-            "yes": { v: "✊", d: "Nod your fist up and down like a head." },
-            "no": { v: "🤌", d: "Snap index and middle finger down to your thumb." }
-        };
-
-        function toggleAI() {
-            sidebar.classList.toggle('active');
-        }
-
-        function sparkyTalk(duration) {
-            mascot.classList.add('talking');
-            setTimeout(() => {
-                mascot.classList.remove('talking');
-            }, duration);
-        }
-
-        function addMsg(html, type) {
-            const b = document.createElement('div');
-            b.className = `bubble ${type}-bubble`;
-            b.innerHTML = html;
-            chatWindow.appendChild(b);
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-
-            if (type === 'ai') {
-                sparkyTalk(1500);
-            }
-        }
-
-        function handle() {
-            const val = userInput.value.trim().toLowerCase();
-            if (!val) return;
-
-            addMsg(userInput.value, 'user');
-            userInput.value = "";
-
-            setTimeout(() => {
-                let found = false;
-                for (let key in signs) {
-                    if (val.includes(key)) {
-                        addMsg(`
-                            <div class="sign-card">
-                                <b class="sign-title">${key} ${signs[key].v}</b>
-                                <p class="sign-desc">${signs[key].d}</p>
-                            </div>
-                        `, 'ai');
-                        found = true;
-                        break;
-                    }
-                }
-                if (!found) {
-                    addMsg("I'm still learning that one! Try 'Hello' or 'Please'.", "ai");
-                }
-            }, 600);
-        }
-
-        sendBtn.addEventListener('click', handle);
-        userInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') handle();
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
