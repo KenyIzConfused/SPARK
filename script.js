@@ -28,15 +28,29 @@ function closeSettings() {
     document.getElementById('settings-popup-overlay').classList.remove('active');
 }
 
+function openGoogle() {
+    document.getElementById('google-popup-overlay').classList.add('active');
+}
+
+function closeGoogle() {
+    document.getElementById('google-popup-overlay').classList.remove('active');
+}
+
 function handleNav(page) {
     if (page === 'Settings') {
         openSettings();
+    } else if (page === 'Google') {
+        openGoogle();
     } else {
         alert("Opening " + page + "...");
     }
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+    // Load saved name on page load
+    const savedName = localStorage.getItem('userName') || 'USER';
+    document.querySelector('.tagline').textContent = 'Welcome ' + savedName;
+
     document.getElementById('send-btn').addEventListener('click', handleChat);
     document.getElementById('user-input').addEventListener('keypress', (e) => {
         if(e.key === 'Enter') handleChat();
@@ -48,11 +62,30 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     document.getElementById('settings-save-btn').addEventListener('click', function() {
-        const name = document.getElementById('user-name').value;
+        const name = document.getElementById('user-name').value.trim() || 'USER';
         const theme = document.getElementById('theme-select').value;
         const notifications = document.getElementById('notifications-toggle').checked;
+
+        // Save to localStorage
+        localStorage.setItem('userName', name);
+
+        // Update the welcome message
+        document.querySelector('.tagline').textContent = 'Welcome ' + name;
+
         alert('Settings saved!\nName: ' + name + '\nTheme: ' + theme + '\nNotifications: ' + (notifications ? 'On' : 'Off'));
         closeSettings();
+    });
+
+    document.getElementById('google-close-btn').addEventListener('click', closeGoogle);
+    document.getElementById('google-popup-overlay').addEventListener('click', function(e) {
+        if (e.target.id === 'google-popup-overlay') {
+            closeGoogle();
+        }
+    });
+    document.querySelector('.google-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Signing in... (This is a demo)');
+        closeGoogle();
     });
 });
 
