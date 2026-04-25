@@ -4,23 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S.P.A.R.K. | ASL for Kids</title>
-
-    <!-- Link to external CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>S.P.A.R.K.</h1>
-        <p class="tagline">
-            Sign and Play: ASL retention for Kids
-            <span class="sub-text">Learning hand signs through interactive play.</span>
-        </p>
+    <button class="settings-corner-btn" onclick="handleNav('Settings')">⚙️</button>
 
-        <div class="button-group">
-            <button class="button button-primary">Sign In</button>
-            <button class="button about-btn">About Us</button>
-            <button class="button settings-btn">Settings</button>
+    <div class="container">
+        <div class="logo-label">LOGO</div>
+        <h1>WELCOME!</h1>
+        <div class="tagline">USER</div>
+
+        <div class="login-card">
+            <div class="button-group">
+                <button class="button" onclick="handleNav('Google')">SIGN IN WITH GOOGLE</button>
+                <button class="button" onclick="handleNav('Email')">CONTINUE WITH EMAIL</button>
+            </div>
+
+            <div class="register-link" onclick="handleNav('Register')">
+                DON'T HAVE ACCOUNT YET? <span>REGISTER HERE</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-mascot-wrapper">
+        <div class="mascot-head-circle">
+            <div class="mascot-face">
+                <div class="blush blush-l"></div>
+                <div class="blush blush-r"></div>
+                <div class="sketch-eye eye-l"><div class="eye-shine"></div></div>
+                <div class="sketch-eye eye-r"><div class="eye-shine"></div></div>
+                <div class="sketch-mouth"></div>
+            </div>
         </div>
     </div>
 
@@ -28,29 +43,50 @@
 
     <div class="ai-sidebar" id="ai-sidebar">
         <div class="ai-header">
-            <span>S.P.A.R.K. Assistant</span>
-            <button class="close-ai" onclick="toggleAI()">✕</button>
+            <span>Sparky Assistant</span>
+            <button style="background:none; border:none; color:white; font-size:22px; cursor:pointer;" onclick="toggleAI()">✕</button>
         </div>
         <div class="mascot-container">
-            <div class="sparky" id="sparky-mascot">
-                <div class="sparky-head">
-                    <div class="sparky-eye left"></div>
-                    <div class="sparky-eye right"></div>
-                    <div class="sparky-mouth"></div>
+            <div class="sparky-head">
+                <div class="eye-row">
+                    <div id="l" class="eye-wrap"><div class="pupil"></div></div>
+                    <div id="m" class="eye-wrap"><div class="pupil"></div></div>
                 </div>
+                <div class="sparky-mouth-ai"></div>
             </div>
         </div>
-
         <div class="chat-window" id="chat-window">
-            <div class="bubble ai-bubble">
-                Hi! I'm Sparky! I can show you how to sign words like 
-                <b>Hello, Thank you, Please,</b> or <b>Help</b>. Just type a word below!
-            </div>
+            <div class="bubble ai-bubble">Hi friend! Type a word and I'll help you sign it!</div>
         </div>
-
         <div class="chat-input-area">
-            <input type="text" id="user-input" placeholder="Ask Sparky...">
+            <input type="text" id="user-input" placeholder="Type a word...">
             <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <div class="settings-popup-overlay" id="settings-popup-overlay">
+        <div class="settings-popup">
+            <button class="close-btn" id="settings-close-btn">✕</button>
+            <h2>Settings</h2>
+            <div class="settings-section">
+                <label for="user-name">Your Name</label>
+                <input type="text" id="user-name" placeholder="Enter your name">
+            </div>
+            <div class="settings-section">
+                <label for="theme-select">Theme</label>
+                <select id="theme-select">
+                    <option value="default">Default</option>
+                    <option value="dark">Dark Mode</option>
+                    <option value="pastel">Pastel</option>
+                </select>
+            </div>
+            <div class="settings-section">
+                <label>
+                    <input type="checkbox" id="notifications-toggle" checked>
+                    Enable Notifications
+                </label>
+            </div>
+            <button class="settings-save-btn" id="settings-save-btn">Save Settings</button>
         </div>
     </div>
 
