@@ -1,117 +1,118 @@
-const signs = {
-    "hello": { v: "👋", d: "Move your hand from your forehead outward like a salute." },
-    "thank you": { v: "🙏", d: "Touch your chin and move your hand forward toward the person." },
-    "please": { v: "🔄", d: "Rub your flat hand in a circle over your chest." },
-    "help": { v: "🙋", d: "Place a 'thumbs up' hand on your flat palm and lift together." }
+// Firebase Configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyDvd-8wx5RHHl0hx6uaxgubg34z8un1o24",
+    authDomain: "spark-e6450.firebaseapp.com",
+    projectId: "spark-e6450",
+    storageBucket: "spark-e6450.firebasestorage.app",
+    messagingSenderId: "942740497464",
+    appId: "1:942740497464:web:22f381f369335304e072cd"
 };
 
-function toggleAI() {
-    document.getElementById('ai-sidebar').classList.toggle('active');
-    updateMascotBlink();
+// Initialize Firebase
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Authentication Functions
+function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+        .then((result) => {
+            const user = result.user;
+            // Save user info to localStorage
+            localStorage.setItem('userName', user.displayName || user.email.split('@')[0]);
+            localStorage.setItem('userEmail', user.email);
+            // Update welcome message
+            document.querySelector('.tagline').textContent = 'Welcome ' + (user.displayName || user.email.split('@')[0]);
+            alert('Signed in as ' + user.displayName);
+        })
+        .catch((error) => {
+            alert('Google Sign-In Error: ' + error.message);
+        });
 }
 
-function updateMascotBlink() {
-    const mascot = document.querySelector('.main-mascot-wrapper');
-    const sidebar = document.getElementById('ai-sidebar');
-    if (sidebar.classList.contains('active')) {
-        mascot.classList.add('blink');
-    } else {
-        mascot.classList.remove('blink');
+function signInWithEmail() {
+    const email = prompt('Enter your email:');
+    const password = prompt('Enter your password:');
+    
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
     }
+    
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            // Save user info to localStorage
+            localStorage.setItem('userName', user.displayName || user.email.split('@')[0]);
+            localStorage.setItem('userEmail', user.email);
+            // Update welcome message
+            document.querySelector('.tagline').textContent = 'Welcome ' + (user.displayName || user.email.split('@')[0]);
+            alert('Signed in as ' + user.email);
+        })
+        .catch((error) => {
+            alert('Email Sign-In Error: ' + error.message);
+        });
 }
 
-function openSettings() {
-    document.getElementById('settings-popup-overlay').classList.add('active');
+function registerWithEmail() {
+    const email = prompt('Enter your email for registration:');
+    const password = prompt('Enter a password (min 6 characters):');
+    
+    if (!email || !password) {
+        alert('Please enter both email and password');
+        return;
+    }
+    
+    if (password.length < 6) {
+        alert('Password must be at least 6 characters long');
+        return;
+    }
+    
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            // Save user info to localStorage
+            localStorage.setItem('userName', user.email.split('@')[0]);
+            localStorage.setItem('userEmail', user.email);
+            // Update welcome message
+            document.querySelector('.tagline').textContent = 'Welcome ' + user.email.split('@')[0];
+            alert('Account created successfully! Welcome ' + user.email.split('@')[0]);
+        })
+        .catch((error) => {
+            alert('Registration Error: ' + error.message);
+        });
 }
 
-function closeSettings() {
-    document.getElementById('settings-popup-overlay').classList.remove('active');
+function registerWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.createUserWithEmailAndPassword(provider)
+        .then((result) => {
+            const user = result.user;
+            // Save user info to localStorage
+            localStorage.setItem('userName', user.displayName || user.email.split('@')[0]);
+            localStorage.setItem('userEmail', user.email);
+            // Update welcome message
+            document.querySelector('.tagline').textContent = 'Welcome ' + (user.displayName || user.email.split('@')[0]);
+            alert('Google account created! Welcome ' + user.displayName);
+        })
+        .catch((error) => {
+            alert('Google Registration Error: ' + error.message);
+        });
 }
 
-function openGoogle() {
-    document.getElementById('google-popup-overlay').classList.add('active');
-}
-
-function closeGoogle() {
-    document.getElementById('google-popup-overlay').classList.remove('active');
-}
-
+// Navigation Handler
 function handleNav(page) {
-    if (page === 'Settings') {
-        openSettings();
-    } else if (page === 'Google') {
-        openGoogle();
-    } else {
-        alert("Opening " + page + "...");
+    if (page === 'Google') {
+        signInWithGoogle();
+    } else if (page === 'Email') {
+        signInWithEmail();
+    } else if (page === 'Register') {
+        window.location.href = 'register.html';
+    } else if (page === 'Settings') {
+        // Toggle settings popup
+        const settingsPopup = document.getElementById('settings-popup-overlay');
+        if (settingsPopup) {
+            settingsPopup.style.display = settingsPopup.style.display === 'block' ? 'none' : 'block';
+        }
     }
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Load saved name on page load
-    const savedName = localStorage.getItem('userName') || 'USER';
-    document.querySelector('.tagline').textContent = 'Welcome ' + savedName;
-
-    document.getElementById('send-btn').addEventListener('click', handleChat);
-    document.getElementById('user-input').addEventListener('keypress', (e) => {
-        if(e.key === 'Enter') handleChat();
-    });
-    document.getElementById('settings-close-btn').addEventListener('click', closeSettings);
-    document.getElementById('settings-popup-overlay').addEventListener('click', function(e) {
-        if (e.target.id === 'settings-popup-overlay') {
-            closeSettings();
-        }
-    });
-    document.getElementById('settings-save-btn').addEventListener('click', function() {
-        const name = document.getElementById('user-name').value.trim() || 'USER';
-        const theme = document.getElementById('theme-select').value;
-        const notifications = document.getElementById('notifications-toggle').checked;
-
-        // Save to localStorage
-        localStorage.setItem('userName', name);
-
-        // Update the welcome message
-        document.querySelector('.tagline').textContent = 'Welcome ' + name;
-
-        alert('Settings saved!\nName: ' + name + '\nTheme: ' + theme + '\nNotifications: ' + (notifications ? 'On' : 'Off'));
-        closeSettings();
-    });
-
-    document.getElementById('google-close-btn').addEventListener('click', closeGoogle);
-    document.getElementById('google-popup-overlay').addEventListener('click', function(e) {
-        if (e.target.id === 'google-popup-overlay') {
-            closeGoogle();
-        }
-    });
-    document.querySelector('.google-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Signing in... (This is a demo)');
-        closeGoogle();
-    });
-});
-
-function handleChat() {
-    const input = document.getElementById('user-input');
-    const val = input.value.toLowerCase().trim();
-    if (!val) return;
-    addMsg(input.value, 'user');
-    input.value = "";
-    setTimeout(() => {
-        let found = false;
-        for (let key in signs) {
-            if (val.includes(key)) {
-                addMsg('<b>' + key.toUpperCase() + ' ' + signs[key].v + '</b><br>' + signs[key].d, 'ai');
-                found = true; break;
-            }
-        }
-        if (!found) addMsg("I'm still learning that one! Try 'Hello' or 'Help'.", "ai");
-    }, 500);
-}
-
-function addMsg(text, type) {
-    const chat = document.getElementById('chat-window');
-    const b = document.createElement('div');
-    b.className = 'bubble ' + type + '-bubble';
-    b.innerHTML = text;
-    chat.appendChild(b);
-    chat.scrollTop = chat.scrollHeight;
 }

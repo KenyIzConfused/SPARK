@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    
     <button class="settings-corner-btn" onclick="handleNav('Settings')">⚙️</button>
 
     <div class="container">
@@ -21,8 +21,8 @@
                 <button class="button" onclick="handleNav('Email')">CONTINUE WITH EMAIL</button>
             </div>
 
-            <div class="register-link" onclick="handleNav('Register')">
-                DON'T HAVE ACCOUNT YET? <span>REGISTER HERE</span>
+            <div class="register-link">
+                DON'T HAVE ACCOUNT YET? <span onclick="handleNav('Register')">REGISTER HERE</span>
             </div>
         </div>
     </div>
@@ -87,34 +87,6 @@
                 </label>
             </div>
             <button class="settings-save-btn" id="settings-save-btn">Save Settings</button>
-        </div>
-    </div>
-
-    <div class="google-popup-overlay" id="google-popup-overlay">
-        <div class="google-popup">
-            <button class="close-btn" id="google-close-btn">✕</button>
-            <div class="google-header">
-                <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" class="google-logo">
-                <h2>Sign in</h2>
-                <p>Use your Google Account</p>
-            </div>
-            <form class="google-form">
-                <div class="input-group">
-                    <input type="email" id="google-email" placeholder="Email or phone" required>
-                </div>
-                <div class="input-group">
-                    <input type="password" id="google-password" placeholder="Password" required>
-                </div>
-                <div class="forgot">
-                    <a href="#" onclick="alert('Forgot email?')">Forgot email?</a>
-                    <a href="#" onclick="alert('Forgot password?')">Forgot password?</a>
-                </div>
-                <p class="guest-mode">Not your computer? Use Guest mode to sign in privately.</p>
-                <div class="form-buttons">
-                    <a href="#" class="create-account">Create account</a>
-                    <button type="submit" class="google-signin-btn">Next</button>
-                </div>
-            </form>
         </div>
     </div>
 

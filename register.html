@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | S.P.A.R.K.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button class="settings-corner-btn" onclick="handleNav('Settings')">⚙️</button>
+
+    <div class="container">
+        <h1>CREATE ACCOUNT</h1>
+
+        <div class="login-card">
+            <div class="button-group">
+                <button class="button" onclick="registerWithGoogle()">REGISTER UP WITH GOOGLE</button>
+                <button class="button" onclick="registerWithEmail()">REGISTER UP WITH EMAIL</button>
+            </div>
+
+            <div class="register-link" onclick="window.location.href='index.html'">
+                ALREADY HAVE AN ACCOUNT? <span>SIGN IN HERE</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
