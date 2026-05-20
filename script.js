@@ -1,3 +1,21 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDvd-8wx5RHHl0hx6uaxgubg34z8un1o24",
+  authDomain: "spark-e6450.firebaseapp.com",
+  projectId: "spark-e6450",
+  storageBucket: "spark-e6450.firebasestorage.app",
+  messagingSenderId: "942740497464",
+  appId: "1:942740497464:web:22f381f369335304e072cd",
+  measurementId: "G-G95ERRSR4C"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+
 const signs = {
     "hello": { v: "👋", d: "Move your hand from your forehead outward like a salute." },
     "thank you": { v: "🙏", d: "Touch your chin and move your hand forward toward the person." },
@@ -31,9 +49,28 @@ function closeSettings() {
 function handleNav(page) {
     if (page === 'Settings') {
         openSettings();
+    } else if (page === 'Google') {
+        signInWithGoogle();
+    } else if (page === 'Email') {
+        signInWithEmail();
     } else {
         alert("Opening " + page + "...");
     }
+}
+
+async function signInWithGoogle() {
+    const provider = new GoogleAuthProvider();
+    try {
+        const result = await signInWithPopup(auth, provider);
+        alert('Signed in as ' + result.user.displayName);
+    } catch (e) { alert(e.message); }
+}
+
+function signInWithEmail() {
+    const email = prompt('Email:');
+    const pass = prompt('Password:');
+    if (!email || !pass) return;
+    signInWithEmailAndPassword(auth, email, pass).then(r => alert('Signed in!')).catch(e => alert(e.message));
 }
 
 document.addEventListener('DOMContentLoaded', function() {
