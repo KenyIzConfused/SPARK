@@ -54,17 +54,29 @@ function signInWithEmail() {
         });
 }
 
-function registerWithEmail() {
-    const email = prompt('Enter your email for registration:');
-    const password = prompt('Enter a password (min 6 characters):');
+function registerWithEmailForm() {
+    const firstName = document.getElementById('firstName').value.trim();
+    const surName = document.getElementById('surName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const successMessage = document.getElementById('successMessage');
+    const errorMessage = document.getElementById('errorMessage');
     
-    if (!email || !password) {
-        alert('Please enter both email and password');
+    // Clear previous messages
+    successMessage.style.display = 'none';
+    errorMessage.style.display = 'none';
+    successMessage.textContent = '';
+    errorMessage.textContent = '';
+    
+    if (!firstName || !surName || !email || !password) {
+        errorMessage.textContent = 'Please fill in all fields';
+        errorMessage.style.display = 'block';
         return;
     }
     
     if (password.length < 6) {
-        alert('Password must be at least 6 characters long');
+        errorMessage.textContent = 'Password must be at least 6 characters long';
+        errorMessage.style.display = 'block';
         return;
     }
     
@@ -72,14 +84,27 @@ function registerWithEmail() {
         .then((userCredential) => {
             const user = userCredential.user;
             // Save user info to localStorage
-            localStorage.setItem('userName', user.email.split('@')[0]);
-            localStorage.setItem('userEmail', user.email);
+            localStorage.setItem('userName', firstName + ' ' + surName);
+            localStorage.setItem('userEmail', email);
+            localStorage.setItem('firstName', firstName);
+            localStorage.setItem('surName', surName);
             // Update welcome message
-            document.querySelector('.tagline').textContent = 'Welcome ' + user.email.split('@')[0];
-            alert('Account created successfully! Welcome ' + user.email.split('@')[0]);
+            document.querySelector('.tagline').textContent = 'Welcome ' + firstName + ' ' + surName;
+            successMessage.textContent = 'Account created successfully! Welcome ' + firstName + ' ' + surName;
+            successMessage.style.display = 'block';
+            // Clear form
+            document.getElementById('firstName').value = '';
+            document.getElementById('surName').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            // Redirect to main page after delay
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 1500);
         })
         .catch((error) => {
-            alert('Registration Error: ' + error.message);
+            errorMessage.textContent = 'Registration Error: ' + error.message;
+            errorMessage.style.display = 'block';
         });
 }
 
@@ -115,4 +140,83 @@ function handleNav(page) {
             settingsPopup.style.display = settingsPopup.style.display === 'block' ? 'none' : 'block';
         }
     }
+}
+
+// AI Chat Functions
+function toggleAI() {
+    document.getElementById('ai-sidebar').classList.toggle('active');
+    updateMascotBlink();
+}
+
+function updateMascotBlink() {
+    const mascot = document.querySelector('.main-mascot-wrapper');
+    const sidebar = document.getElementById('ai-sidebar');
+    if (sidebar.classList.contains('active')) {
+        mascot.classList.add('blink');
+    } else {
+        mascot.classList.remove('blink');
+    }
+}
+
+function openSettings() {
+    document.getElementById('settings-popup-overlay').classList.add('active');
+}
+
+function closeSettings() {
+    document.getElementById('settings-popup-overlay').classList.remove('active');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('send-btn').addEventListener('click', handleChat);
+    document.getElementById('user-input').addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') handleChat();
+    });
+    document.getElementById('settings-close-btn').addEventListener('click', closeSettings);
+    document.getElementById('settings-popup-overlay').addEventListener('click', function(e) {
+        if (e.target.id === 'settings-popup-overlay') {
+            closeSettings();
+        }
+    });
+    document.getElementById('settings-save-btn').addEventListener('click', function() {
+        const name = document.getElementById('user-name').value;
+        const theme = document.getElementById('theme-select').value;
+        const notifications = document.getElementById('notifications-toggle').checked;
+        alert('Settings saved!\nName: ' + name + '\nTheme: ' + theme + '\nNotifications: ' + (notifications ? 'On' : 'Off'));
+        closeSettings();
+    });
+});
+
+function handleChat() {
+    const input = document.getElementById('user-input');
+    const val = input.value.toLowerCase().trim();
+    if (!val) return;
+    addMsg(input.value, 'user');
+    input.value = "";
+    setTimeout(() => {
+        let found = false;
+        for (let key in signs) {
+            if (val.includes(key)) {
+                addMsg('<b>' + key.toUpperCase() + ' ' + signs[key].v + '</b><br>' + signs[key].d, 'ai');
+                found = true; break;
+            }
+        }
+        if (!found) addMsg("I'm still learning that one! Try 'Hello' or 'Help'.", "ai");
+    }, 500);
+}
+
+// Signs dictionary
+const signs = {
+    "hello": { v: "👋", d: "Move your hand from your forehead outward like a salute." },
+    "thank you": { v: "🙏", d: "Touch your chin and move your hand forward toward the person." },
+    "please": { v: "🔄", d: "Rub your flat hand in a circle over your chest." },
+    "help": { v: "🙋", d: "Place a 'thumbs up' hand on your flat palm and lift together." }
+};
+
+function addMsg(text, type) {
+    const chat = document.getElementById('chat-window');
+    const b = document.createElement('div');
+    b.className = 'bubble ' + type + '-bubble';
+    b.innerHTML = text;
+    chat.appendChild(b);
+    chat.scrollTop = chat.scrollHeight;
 }

@@ -3,32 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.P.A.R.K. | ASL for Kids</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="register.css">
+    <title>ASL Quest | S.P.A.R.K.</title>
+    <link rel="stylesheet" href="quest.css">
 </head>
 <body>
-    
-    <button class="settings-corner-btn" onclick="handleNav('Settings')">⚙️</button>
-    <button class="dashboard-corner-btn" onclick="window.location.href='dashboard/index.html'">📊</button>
+    <button class="settings-corner-btn" onclick="toggleSettings()">⚙️</button>
 
-    <div class="container">
-        <div class="logo-label">LOGO</div>
-        <h1>WELCOME!</h1>
-        <div class="tagline">USER</div>
-
-        <div class="login-card">
-            <div class="button-group">
-                <button class="button" onclick="handleNav('Google')">SIGN IN WITH GOOGLE</button>
-                <button class="button" onclick="handleNav('Email')">CONTINUE WITH EMAIL</button>
-            </div>
-
-            <div class="register-link">
-                DON'T HAVE ACCOUNT YET? <span onclick="handleNav('Register')">REGISTER HERE</span>
-            </div>
-        </div>
-    </div>
-
+    <!-- Mascot in the middle (behind content) -->
     <div class="main-mascot-wrapper">
         <div class="mascot-head-circle">
             <div class="mascot-face">
@@ -38,6 +19,29 @@
                 <div class="sketch-eye eye-r"><div class="eye-shine"></div></div>
                 <div class="sketch-mouth"></div>
             </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="logo-label">LOGO</div>
+        <h1>ASL QUEST</h1>
+        <div class="tagline" id="user-tagline">QUEST MODE</div>
+
+        <div class="quest-description">
+            <p>Welcome to your ASL Quest! Practice your signs and earn rewards.</p>
+            <p>Current Quest: Greetings Master</p>
+        </div>
+
+        <div class="quest-card">
+            <button class="button" onclick="startPracticeSession()">Start Practice Session</button>
+        </div>
+
+        <div class="progress-section">
+            <h3>proficiency progress bar</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 12%;"></div>
+            </div>
+            <p id="progress-text">12/100</p>
         </div>
     </div>
 
@@ -97,6 +101,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
     
     <!-- Main Logic -->
-    <script src="script.js"></script>
+    <script src="quest.js"></script>
 </body>
 </html>

@@ -3,32 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.P.A.R.K. | ASL for Kids</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="register.css">
+    <title>Dashboard | S.P.A.R.K.</title>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
-    
-    <button class="settings-corner-btn" onclick="handleNav('Settings')">⚙️</button>
-    <button class="dashboard-corner-btn" onclick="window.location.href='dashboard/index.html'">📊</button>
+    <button class="settings-corner-btn" onclick="toggleSettings()">⚙️</button>
 
-    <div class="container">
-        <div class="logo-label">LOGO</div>
-        <h1>WELCOME!</h1>
-        <div class="tagline">USER</div>
-
-        <div class="login-card">
-            <div class="button-group">
-                <button class="button" onclick="handleNav('Google')">SIGN IN WITH GOOGLE</button>
-                <button class="button" onclick="handleNav('Email')">CONTINUE WITH EMAIL</button>
-            </div>
-
-            <div class="register-link">
-                DON'T HAVE ACCOUNT YET? <span onclick="handleNav('Register')">REGISTER HERE</span>
-            </div>
-        </div>
-    </div>
-
+    <!-- Mascot in the middle (behind content) -->
     <div class="main-mascot-wrapper">
         <div class="mascot-head-circle">
             <div class="mascot-face">
@@ -38,6 +19,51 @@
                 <div class="sketch-eye eye-r"><div class="eye-shine"></div></div>
                 <div class="sketch-mouth"></div>
             </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="logo-label">LOGO</div>
+        <h1>DASHBOARD</h1>
+        <div class="tagline" id="user-tagline">WELCOME USER</div>
+
+        <div class="user-section">
+            <div class="user-avatar" id="dashboard-user-avatar">D</div>
+            <div class="user-details">
+                <div class="user-name" id="dashboard-user-name">Dustin Lee</div>
+                <div class="user-level" id="dashboard-user-level">Level: 69</div>
+            </div>
+        </div>
+
+        <div class="achievements-box">
+            <h2>Achievements:</h2>
+            <div class="achievements-container">
+                <div class="achievement-item">
+                    <span class="emoji">🌟</span>
+                    <div class="achievement-text">
+                        <h3>Getting Started</h3>
+                        <p>Complete your first lesson</p>
+                    </div>
+                </div>
+                <div class="achievement-item">
+                    <span class="emoji">🎯</span>
+                    <div class="achievement-text">
+                        <h3>My first Quest</h3>
+                        <p>Finish the introductory quest</p>
+                    </div>
+                </div>
+                <div class="achievement-item">
+                    <span class="emoji">👋</span>
+                    <div class="achievement-text">
+                        <h3>Greetings In ASL</h3>
+                        <p>Master basic greetings</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quest-card">
+            <button class="button" onclick="startQuest()">Play SPARK Quest Now</button>
         </div>
     </div>
 
@@ -97,6 +123,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
     
     <!-- Main Logic -->
-    <script src="script.js"></script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

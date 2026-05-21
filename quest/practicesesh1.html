@@ -3,32 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S.P.A.R.K. | ASL for Kids</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="register.css">
+    <title>Practice Session 1 | S.P.A.R.K.</title>
+    <link rel="stylesheet" href="quest.css">
 </head>
 <body>
-    
-    <button class="settings-corner-btn" onclick="handleNav('Settings')">⚙️</button>
-    <button class="dashboard-corner-btn" onclick="window.location.href='dashboard/index.html'">📊</button>
+    <button class="settings-corner-btn" onclick="toggleSettings()">⚙️</button>
 
-    <div class="container">
-        <div class="logo-label">LOGO</div>
-        <h1>WELCOME!</h1>
-        <div class="tagline">USER</div>
-
-        <div class="login-card">
-            <div class="button-group">
-                <button class="button" onclick="handleNav('Google')">SIGN IN WITH GOOGLE</button>
-                <button class="button" onclick="handleNav('Email')">CONTINUE WITH EMAIL</button>
-            </div>
-
-            <div class="register-link">
-                DON'T HAVE ACCOUNT YET? <span onclick="handleNav('Register')">REGISTER HERE</span>
-            </div>
-        </div>
-    </div>
-
+    <!-- Mascot in the middle (behind content) -->
     <div class="main-mascot-wrapper">
         <div class="mascot-head-circle">
             <div class="mascot-face">
@@ -38,6 +19,35 @@
                 <div class="sketch-eye eye-r"><div class="eye-shine"></div></div>
                 <div class="sketch-mouth"></div>
             </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="logo-label">LOGO</div>
+        <h1>ASL PRACTICE SESSION</h1>
+        <div class="tagline" id="user-tagline">SESSION 1</div>
+
+        <div class="instruction-card">
+            <h2>Perform "Hello!" in ASL</h2>
+            <p class="sign-description">Move your hand from your forehead outward like a salute.</p>
+            <div class="sign-emoji">👋</div>
+        </div>
+
+        <div class="camera-container">
+            <video id="videoElement" autoplay playsinline></video>
+            <canvas id="canvasElement"></canvas>
+            <div class="camera-controls">
+                <button class="button" id="startCameraBtn">START</button>
+                <button class="button" id="captureBtn" style="display: none;">Capture Sign</button>
+                <button class="button" id="retakeBtn" style="display: none;">Retake</button>
+                <button class="button" id="nextBtn" style="display: none;">Next Sign</button>
+            </div>
+        </div>
+
+        <div class="feedback-section" id="feedback-section" style="display: none;">
+            <h3>Feedback:</h3>
+            <p id="feedback-text"></p>
+            <div class="result-emoji" id="result-emoji"></div>
         </div>
     </div>
 
@@ -97,6 +107,6 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
     
     <!-- Main Logic -->
-    <script src="script.js"></script>
+    <script src="practicesesh1.js"></script>
 </body>
 </html>

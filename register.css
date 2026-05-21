@@ -1,0 +1,103 @@
+/* Register Page Styles - Simple */
+.register-container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.register-card {
+    background: #ffffff;
+    border: 3px solid #2c3e50;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.register-card h1 {
+    color: #000000;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: #333;
+    font-size: 16px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+}
+
+.register-button {
+    display: block;
+    width: 100%;
+    padding: 14px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.register-button:hover {
+    background: #2c80b9;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.register-link span {
+    color: #3498db;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.register-link span:hover {
+    opacity: 0.8;
+}
+
+/* Success/Error States */
+.success-message {
+    background-color: #d5f4e6;
+    border: 2px solid #27ae60;
+    color: #1e8449;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 16px;
+    display: none;
+}
+
+.error-message {
+    background-color: #fadbd8;
+    border: 2px solid #e74c3c;
+    color: #922b21;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 16px;
+    display: none;
+}
