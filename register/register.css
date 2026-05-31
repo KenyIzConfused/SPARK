@@ -1,4 +1,8 @@
 /* Register Page Styles - Simple */
+body {
+    overflow-y: auto;
+}
+
 .register-container {
     max-width: 480px;
     margin: 0 auto;

@@ -99,7 +99,7 @@ function registerWithEmailForm() {
             document.getElementById('password').value = '';
             // Redirect to main page after delay
             setTimeout(() => {
-                window.location.href = 'index.html';
+                window.location.href = '/index.html';
             }, 1500);
         })
         .catch((error) => {
@@ -132,7 +132,7 @@ function handleNav(page) {
     } else if (page === 'Email') {
         signInWithEmail();
     } else if (page === 'Register') {
-        window.location.href = 'register.html';
+        window.location.href = '/register/register.html';
     } else if (page === 'Settings') {
         // Toggle settings popup
         const settingsPopup = document.getElementById('settings-popup-overlay');
