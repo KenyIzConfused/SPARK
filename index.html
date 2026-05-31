@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S.P.A.R.K. | ASL for Kids</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="register.css">
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
     
@@ -92,9 +93,48 @@
         </div>
     </div>
 
+    <!-- Google Sign-In Modal -->
+    <div id="google-modal" class="modal">
+        <div class="modal-content">
+            <h4>Sign in with Google</h4>
+            <p>Click the button below to sign in using your Google account.</p>
+            <br/>
+            <a class="waves-effect waves-light btn modal-close" onclick="signInWithGoogle()">Sign in with Google</a>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+        </div>
+    </div>
+
+    <!-- Email Sign-In Modal -->
+    <div id="email-modal" class="modal">
+        <div class="modal-content">
+            <h4>Sign in with Email</h4>
+            <p>Enter your email and password to sign in:</p>
+            <div class="input-field">
+                <input id="modal-email" type="email" class="validate">
+                <label for="modal-email">Email</label>
+            </div>
+            <div class="input-field">
+                <input id="modal-password" type="password" class="validate">
+                <label for="modal-password">Password</label>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="waves-effect waves-light btn" onclick="signInWithEmailFromModal()">Sign in</a>
+        </div>
+    </div>
+
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+    
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    
+    <!-- Auth Logic -->
+    <script src="auth/auth.js"></script>
     
     <!-- Main Logic -->
     <script src="script.js"></script>
