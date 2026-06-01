@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASL Quest | S.P.A.R.K.</title>
+    <link rel="stylesheet" href="quest.css">
+</head>
+<body>
+    <button class="settings-corner-btn" onclick="toggleSettings()">⚙️</button>
+
+    <!-- Mascot in the middle (behind content) -->
+    <div class="main-mascot-wrapper">
+        <div class="mascot-head-circle">
+            <div class="mascot-face">
+                <div class="blush blush-l"></div>
+                <div class="blush blush-r"></div>
+                <div class="sketch-eye eye-l"><div class="eye-shine"></div></div>
+                <div class="sketch-eye eye-r"><div class="eye-shine"></div></div>
+                <div class="sketch-mouth"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="logo-label">LOGO</div>
+        <h1>ASL QUEST</h1>
+        <div class="tagline" id="user-tagline">QUEST MODE</div>
+
+        <div class="quest-description">
+            <p>Welcome to your ASL Quest! Practice your signs and earn rewards.</p>
+            <p>Current Quest: Greetings Master</p>
+        </div>
+
+        <div class="quest-card">
+            <button class="button" onclick="startPracticeSession()">Start Practice Session</button>
+        </div>
+
+        <div class="progress-section">
+            <h3>proficiency progress bar</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progress-fill" style="width: 12%;"></div>
+            </div>
+            <p id="progress-text">12/100</p>
+        </div>
+    </div>
+
+    <button class="ai-toggle-btn" onclick="toggleAI()">✨ Ask Sparky</button>
+
+    <div class="ai-sidebar" id="ai-sidebar">
+        <div class="ai-header">
+            <span>Sparky Assistant</span>
+            <button style="background:none; border:none; color:white; font-size:22px; cursor:pointer;" onclick="toggleAI()">✕</button>
+        </div>
+        <div class="mascot-container">
+            <div class="sparky-head">
+                <div class="eye-row">
+                    <div id="l" class="eye-wrap"><div class="pupil"></div></div>
+                    <div id="m" class="eye-wrap"><div class="pupil"></div></div>
+                </div>
+                <div class="sparky-mouth-ai"></div>
+            </div>
+        </div>
+        <div class="chat-window" id="chat-window">
+            <div class="bubble ai-bubble">Hi friend! Type a word and I'll help you sign it!</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="Type a word...">
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+
+    <div class="settings-popup-overlay" id="settings-popup-overlay">
+        <div class="settings-popup">
+            <button class="close-btn" id="settings-close-btn">✕</button>
+            <h2>Settings</h2>
+            <div class="settings-section">
+                <label for="user-name">Your Name</label>
+                <input type="text" id="user-name" placeholder="Enter your name">
+            </div>
+            <div class="settings-section">
+                <label for="theme-select">Theme</label>
+                <select id="theme-select">
+                    <option value="default">Default</option>
+                    <option value="dark">Dark Mode</option>
+                    <option value="pastel">Pastel</option>
+                </select>
+            </div>
+            <div class="settings-section">
+                <label>
+                    <input type="checkbox" id="notifications-toggle" checked>
+                    Enable Notifications
+                </label>
+            </div>
+            <button class="settings-save-btn" id="settings-save-btn">Save Settings</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+    
+    <!-- Main Logic -->
+    <script src="quest.js"></script>
+</body>
+</html>

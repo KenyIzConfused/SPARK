@@ -1,98 +1,53 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-analytics.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
+// DOM Elements
+const sidebar = document.getElementById('ai-sidebar');
+const mascot = document.getElementById('sparky-mascot');
+const chatWindow = document.getElementById('chat-window');
+const userInput = document.getElementById('user-input');
+const sendBtn = document.getElementById('send-btn');
+const signInBtn = document.querySelector('.button-primary');
+const aboutBtn = document.querySelector('.about-btn');
+const settingsBtn = document.querySelector('.settings-btn');
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDvd-8wx5RHHl0hx6uaxgubg34z8un1o24",
-  authDomain: "spark-e6450.firebaseapp.com",
-  projectId: "spark-e6450",
-  storageBucket: "spark-e6450.firebasestorage.app",
-  messagingSenderId: "942740497464",
-  appId: "1:942740497464:web:22f381f369335304e072cd",
-  measurementId: "G-G95ERRSR4C"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-
+// ASL Signs Dictionary
 const signs = {
     "hello": { v: "👋", d: "Move your hand from your forehead outward like a salute." },
     "thank you": { v: "🙏", d: "Touch your chin and move your hand forward toward the person." },
     "please": { v: "🔄", d: "Rub your flat hand in a circle over your chest." },
-    "help": { v: "🙋", d: "Place a 'thumbs up' hand on your flat palm and lift together." }
+    "mother": { v: "👩", d: "Tap your thumb on your chin with an open hand." },
+    "father": { v: "👨", d: "Tap your thumb on your forehead with an open hand." },
+    "help": { v: "🙋", d: "Place a 'thumbs up' hand on your flat palm and lift together." },
+    "sorry": { v: "✊", d: "Rub a fist in a circle over your chest." },
+    "yes": { v: "✊", d: "Nod your fist up and down like a head." },
+    "no": { v: "🤌", d: "Snap index and middle finger down to your thumb." }
 };
 
+// Toggle AI Sidebar
 function toggleAI() {
-    document.getElementById('ai-sidebar').classList.toggle('active');
-    updateMascotBlink();
+    sidebar.classList.toggle('active');
 }
 
-function updateMascotBlink() {
-    const mascot = document.querySelector('.main-mascot-wrapper');
-    const sidebar = document.getElementById('ai-sidebar');
-    if (sidebar.classList.contains('active')) {
-        mascot.classList.add('blink');
-    } else {
-        mascot.classList.remove('blink');
+// Animate Sparky talking
+function sparkyTalk(duration) {
+    mascot.classList.add('talking');
+    setTimeout(() => {
+        mascot.classList.remove('talking');
+    }, duration);
+}
+
+// Add message to chat window
+function addMsg(html, type) {
+    const b = document.createElement('div');
+    b.className = `bubble ${type}-bubble`;
+    b.innerHTML = html;
+    chatWindow.appendChild(b);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    if (type === 'ai') {
+        sparkyTalk(1500);
     }
 }
 
-function openSettings() {
-    document.getElementById('settings-popup-overlay').classList.add('active');
-}
-
-function closeSettings() {
-    document.getElementById('settings-popup-overlay').classList.remove('active');
-}
-
-function handleNav(page) {
-    if (page === 'Settings') {
-        openSettings();
-    } else if (page === 'Google') {
-        signInWithGoogle();
-    } else if (page === 'Email') {
-        signInWithEmail();
-    } else {
-        alert("Opening " + page + "...");
-    }
-}
-
-async function signInWithGoogle() {
-    const provider = new GoogleAuthProvider();
-    try {
-        const result = await signInWithPopup(auth, provider);
-        alert('Signed in as ' + result.user.displayName);
-    } catch (e) { alert(e.message); }
-}
-
-function signInWithEmail() {
-    const email = prompt('Email:');
-    const pass = prompt('Password:');
-    if (!email || !pass) return;
-    signInWithEmailAndPassword(auth, email, pass).then(r => alert('Signed in!')).catch(e => alert(e.message));
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('send-btn').addEventListener('click', handleChat);
-    document.getElementById('user-input').addEventListener('keypress', (e) => {
-        if(e.key === 'Enter') handleChat();
-    });
-    document.getElementById('settings-close-btn').addEventListener('click', closeSettings);
-    document.getElementById('settings-popup-overlay').addEventListener('click', function(e) {
-        if (e.target.id === 'settings-popup-overlay') {
-            closeSettings();
-        }
-    });
-    document.getElementById('settings-save-btn').addEventListener('click', function() {
-        const name = document.getElementById('user-name').value;
-        const theme = document.getElementById('theme-select').value;
-        const notifications = document.getElementById('notifications-toggle').checked;
-        alert('Settings saved!\nName: ' + name + '\nTheme: ' + theme + '\nNotifications: ' + (notifications ? 'On' : 'Off'));
-        closeSettings();
-    });
-});
-
+// Handle user chat input
 function handleChat() {
     const input = document.getElementById('user-input');
     const val = input.value.toLowerCase().trim();
@@ -111,11 +66,25 @@ function handleChat() {
     }, 500);
 }
 
-function addMsg(text, type) {
-    const chat = document.getElementById('chat-window');
-    const b = document.createElement('div');
-    b.className = 'bubble ' + type + '-bubble';
-    b.innerHTML = text;
-    chat.appendChild(b);
-    chat.scrollTop = chat.scrollHeight;
+// Navigation button handlers
+function handleSignIn() {
+    window.open('signin/signin.html', '_blank');
 }
+
+function handleAbout() {
+    window.open('about/about.html', '_blank');
+}
+
+function handleSettings() {
+    window.open('settings/settings.html', '_blank');
+}
+
+// Event Listeners
+sendBtn.addEventListener('click', handleChat);
+userInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') handleChat();
+});
+
+signInBtn.addEventListener('click', handleSignIn);
+aboutBtn.addEventListener('click', handleAbout);
+settingsBtn.addEventListener('click', handleSettings);

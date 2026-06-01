@@ -18,6 +18,9 @@ body {
     font-family: 'Segoe UI', system-ui, sans-serif;
     overflow: hidden;
     color: var(--outline-dark);
+    position: relative;
+    padding: 20px;
+    overflow-y: auto; /* Make body scrollable */
 }
 
 .settings-corner-btn {
@@ -43,12 +46,19 @@ body {
     transform: rotate(45deg) scale(1.1);
 }
 
-.container {
+.main-content {
     text-align: center;
-    max-width: 420px;
+    max-width: 800px;
     width: 90%;
     z-index: 5;
     margin-top: -20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 500px; /* Limit width for better readability */
 }
 
 .logo-label {
@@ -62,7 +72,7 @@ body {
 h1 {
     font-size: 4rem;
     font-weight: 900;
-    margin: 0;
+    margin: 0 0 20px 0;
     color: var(--white);
     text-shadow: 4px 4px 0px rgba(0,0,0,0.15);
     letter-spacing: -2px;
@@ -71,27 +81,125 @@ h1 {
 .tagline {
     font-size: 1.4rem;
     color: var(--accent-cream);
-    margin: 0 0 25px 0;
+    margin: 0 0 30px 0;
     font-weight: bold;
 }
 
-.login-card {
-    background-color: var(--box-fill);
-    padding: 30px 20px;
-    border-radius: 40px;
+.quest-description {
+    background: var(--box-fill);
     border: 3px dashed var(--accent-cream);
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
 }
 
-.button-group {
+.quest-description p {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    color: var(--outline-dark);
+}
+
+.instruction-card {
+    background: var(--box-fill);
+    border: 3px dashed var(--accent-cream);
+    border-radius: 20px;
+    padding: 25px;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.instruction-card h2 {
+    margin: 0 0 15px 0;
+    font-size: 1.5rem;
+    color: var(--outline-dark);
+}
+
+.sign-description {
+    margin: 0 0 20px 0;
+    font-size: 1.2rem;
+    color: #666;
+    font-style: italic;
+}
+
+.sign-emoji {
+    font-size: 4rem;
+    margin: 20px 0;
+    display: block;
+}
+
+.camera-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 400px;
+    margin: 20px 0;
+    background: #000;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 3px solid var(--accent-cream);
+}
+
+#videoElement {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+#canvasElement {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default, can be used for overlay effects */
+}
+
+.camera-controls {
     display: flex;
-    flex-direction: column;
-    gap: 18px;
-    align-items: center;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.feedback-section {
+    background: var(--box-fill);
+    border: 3px dashed var(--accent-cream);
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
+}
+
+.feedback-section h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+    color: var(--outline-dark);
+}
+
+#feedback-text {
+    margin: 0 0 15px 0;
+    font-size: 1.1rem;
+    min-height: 40px;
+}
+
+.result-emoji {
+    font-size: 3rem;
+    text-align: center;
+    display: block;
+    margin: 15px 0;
 }
 
 .button {
     width: 100%;
+    max-width: 200px;
     padding: 18px;
     font-size: 1.1rem;
     font-weight: 900;
@@ -110,28 +218,20 @@ h1 {
     background-color: var(--white);
 }
 
-.register-link {
-    margin-top: 25px;
-    font-weight: 800;
-    color: var(--white);
-    font-size: 1rem;
-    cursor: pointer;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+.button:active {
+    transform: translateY(0);
 }
 
-.register-link span {
-    text-decoration: underline;
-    color: var(--accent-cream);
-}
-
+/* Mascot positioning - on the left side */
 .main-mascot-wrapper {
     position: fixed;
-    bottom: -50px;
-    left: -60px;
-    z-index: 1;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%) rotate(15deg);
     width: 320px;
     height: 320px;
-    transform: rotate(15deg);
+    pointer-events: none; /* Allow clicks to go through to content below */
+    z-index: 1;
 }
 
 .main-mascot-wrapper.blink .sketch-eye {
@@ -374,8 +474,93 @@ h1 {
     background: var(--ai-blue);
     color: white;
     border: none;
-    padding: 0 15px;
-    border-radius: 8px;
+    padding: 0 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.settings-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.settings-popup-overlay.active {
+    display: flex;
+}
+
+.settings-popup {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    border: 4px solid var(--outline-dark);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    max-width: 450px;
+    width: 90%;
+    position: relative;
+}
+
+.settings-popup h2 {
+    margin: 0 0 20px 0;
+    color: var(--outline-dark);
+    font-size: 1.8rem;
+}
+
+.settings-popup .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.settings-section {
+    margin-bottom: 20px;
+}
+
+.settings-section label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--outline-dark);
+}
+
+.settings-section select,
+.settings-section input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid var(--accent-cream);
+    border-radius: 10px;
+    font-size: 1rem;
+    background: var(--bg-orange);
+    color: var(--white);
+}
+
+.settings-section input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.settings-save-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    background: var(--accent-cream);
+    border: 4px solid var(--outline-dark);
+    border-radius: 50px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--outline-dark);
     cursor: pointer;
     transition: all 0.2s ease;
 }
@@ -384,4 +569,61 @@ h1 {
     background: var(--white);
     transform: translateY(-2px);
     box-shadow: 0 5px 0px var(--outline-dark);
+}
+
+/* Progress bar styles for video game style experience bar */
+.progress-section h3 {
+    margin: 0 0 15px 0;
+    font-size: 1.3rem;
+    color: var(--outline-dark);
+}
+
+.progress-bar {
+    background: #2c3e50;
+    border-radius: 10px;
+    height: 25px;
+    margin-bottom: 10px;
+    overflow: hidden;
+    border: 2px solid var(--outline-dark);
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.progress-fill {
+    background: linear-gradient(90deg, #ffeb3b, #ff9800);
+    height: 100%;
+    width: 12%;
+    transition: width 0.3s ease;
+    box-shadow: inset 0 -2px 4px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        45deg,
+        rgba(255,255,255,0.1) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(255,255,255,0.1) 50%,
+        rgba(255,255,255,0.1) 75%,
+        transparent 75%,
+        transparent
+    );
+    background-size: 20px 20px;
+    animation: move 2s linear infinite;
+}
+
+@keyframes move {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 20px 20px;
+    }
 }
