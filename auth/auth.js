@@ -12,6 +12,9 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const db = firebase.firestore();
+
+db.settings({ timestampsInSnapshots: true });
 
 // Authentication Functions
 function signInWithGoogle() {
