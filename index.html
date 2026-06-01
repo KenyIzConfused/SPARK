@@ -9,36 +9,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 </head>
 <body>
-    
-    <button class="settings-corner-btn" onclick="handleNav('Settings')">⚙️</button>
-    <button class="dashboard-corner-btn" onclick="window.location.href='dashboard/index.html'">📊</button>
 
     <div class="container">
-        <div class="logo-label">LOGO</div>
-        <h1>WELCOME!</h1>
-        <div class="tagline">USER</div>
+        <h1>S.P.A.R.K.</h1>
+        <p class="tagline">
+            Sign and Play: ASL retention for Kids
+            <span class="sub-text">Learning hand signs through interactive play.</span>
+        </p>
 
-        <div class="login-card">
-            <div class="button-group">
-                <button class="button" onclick="handleNav('Google')">SIGN IN WITH GOOGLE</button>
-                <button class="button" onclick="handleNav('Email')">CONTINUE WITH EMAIL</button>
-            </div>
-
-            <div class="register-link">
-                DON'T HAVE ACCOUNT YET? <span onclick="handleNav('Register')">REGISTER HERE</span>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-mascot-wrapper">
-        <div class="mascot-head-circle">
-            <div class="mascot-face">
-                <div class="blush blush-l"></div>
-                <div class="blush blush-r"></div>
-                <div class="sketch-eye eye-l"><div class="eye-shine"></div></div>
-                <div class="sketch-eye eye-r"><div class="eye-shine"></div></div>
-                <div class="sketch-mouth"></div>
-            </div>
+        <div class="button-group">
+            <button class="button button-primary">Sign In</button>
+            <button class="button about-btn">About Us</button>
+            <button class="button settings-btn">Settings</button>
         </div>
     </div>
 
@@ -67,77 +49,7 @@
         </div>
     </div>
 
-    <div class="settings-popup-overlay" id="settings-popup-overlay">
-        <div class="settings-popup">
-            <button class="close-btn" id="settings-close-btn">✕</button>
-            <h2>Settings</h2>
-            <div class="settings-section">
-                <label for="user-name">Your Name</label>
-                <input type="text" id="user-name" placeholder="Enter your name">
-            </div>
-            <div class="settings-section">
-                <label for="theme-select">Theme</label>
-                <select id="theme-select">
-                    <option value="default">Default</option>
-                    <option value="dark">Dark Mode</option>
-                    <option value="pastel">Pastel</option>
-                </select>
-            </div>
-            <div class="settings-section">
-                <label>
-                    <input type="checkbox" id="notifications-toggle" checked>
-                    Enable Notifications
-                </label>
-            </div>
-            <button class="settings-save-btn" id="settings-save-btn">Save Settings</button>
-        </div>
-    </div>
-
-    <!-- Google Sign-In Modal -->
-    <div id="google-modal" class="modal">
-        <div class="modal-content">
-            <h4>Sign in with Google</h4>
-            <p>Click the button below to sign in using your Google account.</p>
-            <br/>
-            <a class="waves-effect waves-light btn modal-close" onclick="signInWithGoogle()">Sign in with Google</a>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-        </div>
-    </div>
-
-    <!-- Email Sign-In Modal -->
-    <div id="email-modal" class="modal">
-        <div class="modal-content">
-            <h4>Sign in with Email</h4>
-            <p>Enter your email and password to sign in:</p>
-            <div class="input-field">
-                <input id="modal-email" type="email" class="validate">
-                <label for="modal-email">Email</label>
-            </div>
-            <div class="input-field">
-                <input id="modal-password" type="password" class="validate">
-                <label for="modal-password">Password</label>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-            <a href="#!" class="waves-effect waves-light btn" onclick="signInWithEmailFromModal()">Sign in</a>
-        </div>
-    </div>
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js"></script>
-
-    <!-- Materialize JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    
-    <!-- Auth Logic -->
-    <script src="auth/auth.js"></script>
-    
-    <!-- Main Logic -->
     <script src="script.js"></script>
 </body>
+</html>
 </html>
